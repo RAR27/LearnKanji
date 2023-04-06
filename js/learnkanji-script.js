@@ -177,8 +177,19 @@ function constFinal(){
     say(i);
   };
 
-
 };
+function playAudioFile(src) {
+  // Create a new Audio object
+  let audio = new Audio();
+  
+  // Set the source of the audio file
+  audio.src = src;
+  
+  // Play the audio file
+  audio.addEventListener('canplaythrough', function() {
+    audio.play();
+  });
+}
 
 //Button Actions---------------------------------------------------------------------------------------------------
 ////Go back to most recent page
@@ -277,6 +288,7 @@ questKanji.addEventListener("click", () => {
 });
 
 //Declare what happens when an answer is selected.
+
 for (let i = 0; i < choiceElems.length; i++) {
   choiceElems[i].addEventListener('click', () => {
     displayOff(question);
@@ -284,14 +296,16 @@ for (let i = 0; i < choiceElems.length; i++) {
     //If correct:
     if (choiceElems[i].textContent === correctAnswer) {
       //Display correct result screen
-      
       resulttext.textContent = 'Correct!';
+      playAudioFile("assets/Children-Yay.mp3");
 
     //If incorrect:
     } else {
       //Display incorrect result screen
       resulttext.textContent = 'Incorrect!';
+      playAudioFile("assets/Bruh-Sound-Effect.mp3");
     }
+
     finalList.push(choiceElems[i].outerText);
     say(finalList);
   });
